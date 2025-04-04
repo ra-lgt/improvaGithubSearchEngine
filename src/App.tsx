@@ -6,14 +6,10 @@ import './App.css'
 
 function App() {
 
+  // for now add only routes later we can HOC
 
   return (
-    <>
-       <HStack>
-      <Button>Click me</Button>
-      <Button>Click me</Button>
-    </HStack>
-    </>
+    <routes></routes>
   )
 }
 
