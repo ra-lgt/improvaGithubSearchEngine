@@ -1,15 +1,17 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import { Button, HStack } from "@chakra-ui/react"
+import AppRoutes from './routes/AppRoutes'
 import './App.css'
+import Navbar from './components/ui/navbar'
 
 function App() {
 
   // for now add only routes later we can HOC
 
   return (
-    <routes></routes>
+    <>
+      <Navbar/>
+      <AppRoutes/>
+      </>
+  
   )
 }
 

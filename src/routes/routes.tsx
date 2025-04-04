@@ -1,1 +1,0 @@
-//add the routing endpoints home,history page
