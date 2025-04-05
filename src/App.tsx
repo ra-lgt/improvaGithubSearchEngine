@@ -1,6 +1,7 @@
 import AppRoutes from './routes/AppRoutes'
 import './App.css'
 import Navbar from './components/ui/navbar'
+import Home from './pages/home/home'
 
 function App() {
 
