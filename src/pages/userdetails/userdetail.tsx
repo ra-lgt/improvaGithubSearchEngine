@@ -178,10 +178,10 @@ function userdetail() {
             </Card.Description>
           </Card.Body>
         </Card.Root>
-        <Card.Root m="5" className="relative w-1/2 h-80 overflow-y-auto">
+        <Card.Root m="5" className="relative w-1/2 overflow-y-auto flex flex-col h-80" style={{height:"100vh"}}>
           <Card.Body gap="2">
-            <Card.Title mt="2">User Events</Card.Title>
-            <Card.Description>
+            <Card.Title mt="2"  className="sticky top-0 z-10 py-2 md-50">User Events</Card.Title>
+            <Card.Description className="pt-4">
               {userEvent &&
                 userEvent.map((event : UserEventType) => (
                   <div className="max-h-[500px] overflow-y-auto pr-1">

@@ -12,13 +12,20 @@ import {
   Image,
 } from "@chakra-ui/react";
 
-const Links: string[] = ["Home", "About", "Services", "Pricing", "Contact"];
+
+const routes = {
+  Home: "/",
+  History: "/history",
+};
+
+const Links: (keyof typeof routes)[] = ["Home", "History"];
 
 interface NavLinkProps {
+  href: string;
   children: React.ReactNode;
 }
 
-const NavLink: React.FC<NavLinkProps> = ({ children }) => (
+const NavLink: React.FC<NavLinkProps> = ({ href,children }) => (
   <Link
     px={4}
     py={2}
@@ -27,7 +34,7 @@ const NavLink: React.FC<NavLinkProps> = ({ children }) => (
       textDecoration: "none",
       bg: "gray.200",
     }}
-    href="#"
+    href={href}
   >
     {children}
   </Link>
@@ -44,36 +51,38 @@ const Navbar: React.FC = () => {
           ChakraNav
         </Text>
 
-        {/* Desktop Nav Links */}
-        <HStack gap={8} alignItems="center" display={{ base: "none", md: "flex" }}>
+        <HStack
+          gap={8}
+          alignItems="center"
+          display={{ base: "none", md: "flex" }}
+        >
           {Links.map((link) => (
-            <NavLink key={link}>{link}</NavLink>
+            <NavLink key={link} href={routes[link]}>{link}</NavLink>
           ))}
         </HStack>
 
-        {/* Mobile Hamburger Icon */}
         <IconButton
-  size="md"
-  aria-label="Open Menu"
-  display={{ md: "none" }}
-  onClick={open ? onClose : onOpen}
-  variant="ghost"
->
-  {open ? (
-    <Text fontSize="2xl" fontWeight="bold">&#10006;</Text>
-  ) : (
-    <Image src={Burgermenu} alt="Menu Icon" boxSize="24px" />
-  )}
-</IconButton>
-
+          size="md"
+          aria-label="Open Menu"
+          display={{ md: "none" }}
+          onClick={open ? onClose : onOpen}
+          variant="ghost"
+        >
+          {open ? (
+            <Text fontSize="2xl" fontWeight="bold">
+              &#10006;
+            </Text>
+          ) : (
+            <Image src={Burgermenu} alt="Menu Icon" boxSize="24px" />
+          )}
+        </IconButton>
       </Flex>
 
-      {/* Mobile Nav Links */}
       {open && (
         <Box pb={4} display={{ md: "none" }}>
           <Stack as="nav" gap={4}>
             {Links.map((link) => (
-              <NavLink key={link}>{link}</NavLink>
+              <NavLink key={link} href={link.toLowerCase()}>{link}</NavLink>
             ))}
           </Stack>
         </Box>

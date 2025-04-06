@@ -40,9 +40,7 @@ export default function Result() {
         const user_data = await apiService.get("search/users", { q: username });
         setAllUserData(user_data?.items)
         setUserData(user_data?.items);
-        setTimeout(() => {
           setLoading(false);
-        }, 5000);
       }
     })();
   }, []);

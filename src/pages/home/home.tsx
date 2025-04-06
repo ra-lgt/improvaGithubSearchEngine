@@ -20,12 +20,17 @@ function Home(){
         addSearchTerm(JSON.stringify({
           search_query:user_name,
           timestamp:new Date().getTime(),
+          status:"success"
         }))
         navigate(`/result?username=${user_name}`)
 
       }
       else{
-        console.log(is_user_available)
+        addSearchTerm(JSON.stringify({
+          search_query:user_name,
+          timestamp:new Date().getTime(),
+          status:"error"
+        }))
         
         toaster.create({
           title: is_user_available?.status=="404"?"Error Occured" : "OOPS!",
