@@ -76,6 +76,12 @@ function userdetail() {
 
   return (
     <>
+   <Box display="flex" justifyContent="space-between" alignItems="center" w="full" mt={4} ml={4}>
+  <Text fontSize="xl" fontWeight="bold">
+    User Details
+  </Text>
+</Box>
+
       <div className="flex">
         <div></div>
 
