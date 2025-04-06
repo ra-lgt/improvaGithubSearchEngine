@@ -11,6 +11,7 @@ import {
   Box,
   VStack,
   HStack,
+  Button
 } from "@chakra-ui/react";
 import { useSearchHistory } from "@/context/searchHistoryContext";
 import { useNavigate } from 'react-router-dom';
@@ -21,7 +22,7 @@ type SearchHistoryItem = {
 };
 
 type SearchDetails={
-  timestamp:string,
+  timestamp:number,
   search_query:string,
   status:string,
 }
@@ -40,7 +41,7 @@ function history() {
 
   const handleQueryClick=(id:string,search_details:SearchDetails)=>{
     deleteSearchTerm(id)
-    search_details['timestamp'] =String(new Date().getTime())  //fix the timestamp
+    search_details['timestamp'] =new Date().getTime()  //fix the timestamp
     let user_name=search_details?.search_query
 
     addSearchTerm(JSON.stringify(search_details))
@@ -54,6 +55,7 @@ function history() {
 
   useEffect(() => {
     setAllHistory(getSearchHistory())
+    console.log(allHistory)
   }, [reload])
 
   
@@ -63,6 +65,18 @@ function history() {
         <Text fontSize="xl" className="flex-shrink-0">
           Search History
         </Text>
+        <Button size="sm" 
+    background="red" 
+    borderRadius="md" 
+    px={4}
+    fontWeight="medium"
+    color="white" onClick={()=> 
+    {clearAll()
+      setReload(!reload);
+    }
+    }>
+Clear All
+        </Button>
       </div>
 
       <Card.Root m="5">
@@ -71,7 +85,6 @@ function history() {
             <VStack align="start" gap={1}>
               {allHistory.map((history)=>{
                 let { id, search_details } = history;
-
                 const parsedDetails: SearchDetails = JSON.parse(search_details);
 
                 return(
