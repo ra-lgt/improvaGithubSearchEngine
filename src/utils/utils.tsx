@@ -48,13 +48,14 @@ const ICONS_REF: Record<string, () => Promise<{ default: FAIcon }>> = {
 
   WatchEvent: () =>
     import('@fortawesome/free-solid-svg-icons/faStar').then(mod => ({ default: mod.faStar })),
+
+
 };
 
 export const getIcon = async (eventType: string): Promise<FAIcon> => {
   const loader = ICONS_REF[eventType];
   if (loader) {
     const { default: icon } = await loader();
-    console.log(icon);
     return icon;
   }
 

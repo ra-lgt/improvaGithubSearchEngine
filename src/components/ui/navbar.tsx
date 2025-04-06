@@ -48,7 +48,7 @@ const Navbar: React.FC = () => {
       <Flex h={16} alignItems="center" justifyContent="space-between">
         {/* Logo */}
         <Text fontSize="xl" fontWeight="bold">
-          ChakraNav
+          GithubSearchEngine
         </Text>
 
         <HStack
