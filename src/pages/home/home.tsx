@@ -1,5 +1,6 @@
 import React from "react";
 import GithubLogo from '../../assets/GitHub-logo.png'
+import GithubLogoLight from '../../assets/githubLight.png'
 import { Text, Input, InputGroup, Kbd } from "@chakra-ui/react"
 import { LuSearch } from "react-icons/lu"
 import { useNavigate } from 'react-router-dom';
@@ -7,6 +8,7 @@ import { ApiService } from "@/services/service";
 import {toaster} from '@/components/ui/toaster'
 import { useSearchHistory } from "@/context/searchHistoryContext";
 function Home(){
+  const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const navigate = useNavigate();
   const apiService = new ApiService();
   const {addSearchTerm }=useSearchHistory();
@@ -48,7 +50,7 @@ function Home(){
         <div className="flex flex-col justify-center items-center h-screen text-center px-4">
           
         <img 
-          src={GithubLogo} 
+          src={isDarkMode?GithubLogoLight:GithubLogo} 
           alt="Github Logo" 
           className="w-64 h-64 object-contain mb-6" 
         />
