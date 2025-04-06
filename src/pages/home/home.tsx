@@ -5,9 +5,11 @@ import { LuSearch } from "react-icons/lu"
 import { useNavigate } from 'react-router-dom';
 import { ApiService } from "@/services/service";
 import {toaster} from '@/components/ui/toaster'
+import { useSearchHistory } from "@/context/searchHistoryContext";
 function Home(){
   const navigate = useNavigate();
   const apiService = new ApiService();
+  const {addSearchTerm }=useSearchHistory();
 
   const submitQuery=async (e: React.KeyboardEvent<HTMLInputElement>)=>{
     if(e.key=="Enter"){
@@ -15,6 +17,10 @@ function Home(){
       
       const is_user_available=await apiService.get(`users/${user_name}`);
       if(is_user_available?.id){
+        addSearchTerm({
+          search_query:user_name,
+          timestamp:new Date().getTime(),
+        })
         navigate(`/result?username=${user_name}`)
 
       }

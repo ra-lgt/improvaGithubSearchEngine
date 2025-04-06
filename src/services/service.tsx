@@ -1,6 +1,6 @@
 export class ApiService {
     private BASE_URL: string = 'https://api.github.com';
-    private GITHUB_PAT_TOKEN:string= "";
+    private GITHUB_PAT_TOKEN:string= import.meta.env.VITE_GITHUB_PAT_TOKEN;
 
     private HEADERS={
         Authorization: `Bearer ${this.GITHUB_PAT_TOKEN}`,

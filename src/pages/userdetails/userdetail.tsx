@@ -3,17 +3,21 @@ import { Avatar, Button, Card } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
 import { useSearchParams } from "react-router-dom";
 import { ApiService } from "@/services/service";
+import moment from "moment";
+import DynamicIcon from "@/components/ui/dynamicIcons";
 function userdetail() {
   const [searchParams] = useSearchParams();
   const username = searchParams.get("username");
   const [userDetails, setUserDetails] = useState({});
-  const [userRepo,setUserRepo]=useState([]);
+  const [userRepo, setUserRepo] = useState([]);
+  const [userEvent, setUserEvent] = useState([]);
   const apiService = new ApiService();
 
   useEffect(() => {
     (async () => {
       setUserRepo(await apiService.get(`users/${username}/repos`));
-      setUserDetails( await apiService.get(`users/${username}`));
+      setUserDetails(await apiService.get(`users/${username}`));
+      setUserEvent(await apiService.get(`users/${username}/received_events`));
     })();
   }, []);
 
@@ -135,13 +139,49 @@ function userdetail() {
             </Card.Description>
           </Card.Body>
         </Card.Root>
-        <Card.Root m="5" className="relative w-1/2">
+        <Card.Root m="5" className="relative w-1/2 h-80 overflow-y-auto">
           <Card.Body gap="2">
-            <Card.Title mt="2">Achievements</Card.Title>
+            <Card.Title mt="2">User Events</Card.Title>
             <Card.Description>
-              This is the card body. Lorem ipsum dolor sit amet, consectetur
-              adipiscing elit. Curabitur nec odio vel dui euismod fermentum.
-              Curabitur nec odio vel dui euismod fermentum.
+              {userEvent &&
+                userEvent.map((event) => (
+                  <div className="max-h-[500px] overflow-y-auto pr-1">
+                    <div key={event?.id} className="flex flex-col gap-2 w-full">
+                      <div className="flex items-start justify-between gap-4 px-4 py-3 bg-white dark:bg-gray-900 shadow-md rounded-xl transition hover:shadow-lg">
+                        {/* Icon */}
+                        <div className="pt-1 text-blue-600">
+                          <DynamicIcon type={event?.type} />
+                        </div>
+
+                        {/* Text content */}
+                        <div className="flex-1 text-sm text-gray-800 dark:text-gray-200">
+                          <span className="font-medium">
+                            {event?.actor?.display_login}{" "}
+                            {event?.payload?.action}
+                          </span>{" "}
+                          the repository
+                          <a
+                            href={`https://github.com/${event?.repo?.name}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-500 hover:underline block mt-1"
+                          >
+                            {event?.repo?.name}
+                          </a>
+                        </div>
+
+                        {/* Timestamp */}
+                        <div className="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">
+                          {moment(event?.created_at).fromNow()}
+                        </div>
+                      </div>
+
+                      <hr className="border-gray-200 dark:border-gray-700" />
+                    </div>
+
+                    <hr className="border-gray-200" />
+                  </div>
+                ))}
             </Card.Description>
           </Card.Body>
         </Card.Root>
