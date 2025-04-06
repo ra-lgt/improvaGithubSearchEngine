@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 import { Avatar, Button, Card } from "@chakra-ui/react";
 import { Text, Input, InputGroup, Kbd } from "@chakra-ui/react";
 import { LuSearch } from "react-icons/lu";
 import { ApiService } from "@/services/service";
 import { useNavigate } from 'react-router-dom';
 import CardLoader from "@/components/ui/cardLoader";
+
+
+type User={
+  login: string;
+
+}
 export default function Result() {
   const [searchParams] = useSearchParams();
   const username = searchParams.get("username");
@@ -21,16 +26,13 @@ export default function Result() {
 
   }
 
-  const handleSearch=(user_query:string)=>{
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const user_query = e.currentTarget.value.toLowerCase();
     
-    user_query=String(user_query.currentTarget.value);
-
-    setUserData(allUserData.filter((user:any)=>{
-      return String(user?.login).toLowerCase().includes(user_query)
-    }))
-    
-
-  }
+    setUserData(allUserData.filter((user:User) => {
+      return user?.login?.toLowerCase().includes(user_query);
+    }));
+  };
 
   useEffect(() => {
     (async () => {
@@ -55,7 +57,7 @@ export default function Result() {
             <Input
               placeholder="Search username"
               className="w-full px-4 py-2 border rounded-lg"
-              onChange={(text)=>{handleSearch(text)}}
+              onChange={(e)=>{handleSearch(e)}}
             />
           </InputGroup>
         </div>

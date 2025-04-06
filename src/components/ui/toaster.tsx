@@ -7,7 +7,6 @@ import {
   Stack,
   Toast,
   createToaster,
-  Box,
 } from "@chakra-ui/react"
 
 export const toaster = createToaster({

@@ -25,6 +25,7 @@ export const SearchHistoryProvider = ({ children }: { children: React.ReactNode 
   const [searchHistory, setSearchHistory] = useState<SearchHistoryItem[]>([]);
 
   const syncToStorage = (data: SearchHistoryItem[]) => {
+    searchHistory
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     setSearchHistory(data);
   };
@@ -76,7 +77,10 @@ export const SearchHistoryProvider = ({ children }: { children: React.ReactNode 
   );
 };
 
-export const useSearchHistory = () => {
-  const context = useContext(SearchHistoryContext);
-  return context;
-};
+export const useSearchHistory = (): SearchHistoryContextType => {
+    const context = useContext(SearchHistoryContext);
+    if (context === undefined) {
+      throw new Error('useSearchHistory must be used within a SearchHistoryProvider');
+    }
+    return context;
+  };

@@ -37,15 +37,14 @@ const CardLoader = ({
           p="4"
           boxShadow="md"
         >
-          <Stack spacing="4">
+          <Stack gap="4">
             {/* Avatar and Title */}
             {loadingType?.includes("avatar") && (
-              <HStack spacing="4">
+              <HStack gap="4">
                 <SkeletonCircle size={avatarSize} />
                 <SkeletonText
                   noOfLines={2}
-                  spacing="2"
-                  skeletonHeight="4"
+                  gap="2"
                   w="60%"
                 />
               </HStack>
@@ -55,8 +54,7 @@ const CardLoader = ({
             {loadingType?.includes("infoLines") && (
               <SkeletonText
                 noOfLines={lineCount}
-                spacing="3"
-                skeletonHeight="4"
+                gap="3"
               />
             )}
 

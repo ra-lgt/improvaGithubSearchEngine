@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import GithubLogo from '../../assets/GitHub-logo.png'
 import { Text, Input, InputGroup, Kbd } from "@chakra-ui/react"
 import { LuSearch } from "react-icons/lu"
@@ -17,10 +17,10 @@ function Home(){
       
       const is_user_available=await apiService.get(`users/${user_name}`);
       if(is_user_available?.id){
-        addSearchTerm({
+        addSearchTerm(JSON.stringify({
           search_query:user_name,
           timestamp:new Date().getTime(),
-        })
+        }))
         navigate(`/result?username=${user_name}`)
 
       }

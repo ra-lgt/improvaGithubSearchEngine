@@ -62,3 +62,10 @@ export const getIcon = async (eventType: string): Promise<FAIcon> => {
   const { faQuestion } = await import('@fortawesome/free-solid-svg-icons/faQuestion');
   return faQuestion;
 };
+
+export const formatDate = (dateString?: string): string => {
+    if (!dateString) return 'Not available';
+    const date = new Date(dateString);
+    return isNaN(date.getTime()) ? 'Invalid date' : date.toLocaleDateString();
+  };
+  

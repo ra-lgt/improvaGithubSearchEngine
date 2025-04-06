@@ -1,4 +1,3 @@
-import React from 'react'
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 import { Avatar, Button, Card } from "@chakra-ui/react"
 import { Text, Input, InputGroup, Kbd } from "@chakra-ui/react"

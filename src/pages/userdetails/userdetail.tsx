@@ -1,20 +1,58 @@
-import React, { useEffect, useState } from "react";
-import { Avatar, Button, Card } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Avatar, Card } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
 import { useSearchParams } from "react-router-dom";
 import { ApiService } from "@/services/service";
 import moment from "moment";
 import DynamicIcon from "@/components/ui/dynamicIcons";
+import { formatDate } from "@/utils/utils";
+type UserDetailsType = {
+  login: string;
+  avatar_url: string;
+  name?: string;
+  company?: string;
+  bio?: string;
+  html_url: string;
+  followers: number;
+  following: number;
+  public_repos: number;
+  created_at?: string;
+  location?: string;
+  email?: string;
+  blog?: string;
+  twitter_username?: string;
+  public_gists?: number;
+  site_admin?:string;
+  hireable?: boolean;
+  updated_at?: string;
+};
+
+type UserEventType={
+  id: string;
+  type: string;
+  created_at: string;
+  actor: {
+    login: string;
+    display_login:string;
+  };
+  payload:{
+    action:string
+  };
+  repo: {
+    name: string;
+  };
+}
 function userdetail() {
   const [searchParams] = useSearchParams();
   const username = searchParams.get("username");
-  const [userDetails, setUserDetails] = useState({});
+  const [userDetails, setUserDetails] = useState<UserDetailsType | null>(null);
   const [userRepo, setUserRepo] = useState([]);
   const [userEvent, setUserEvent] = useState([]);
   const apiService = new ApiService();
 
   useEffect(() => {
     (async () => {
+      console.log(userRepo);
       setUserRepo(await apiService.get(`users/${username}/repos`));
       setUserDetails(await apiService.get(`users/${username}`));
       setUserEvent(await apiService.get(`users/${username}/received_events`));
@@ -114,14 +152,14 @@ function userdetail() {
             <Card.Description>
               <Text>
                 Account Created At:{" "}
-                {new Date(userDetails?.created_at).toLocaleDateString()}
+                {formatDate(userDetails?.created_at)}
               </Text>
             </Card.Description>
 
             <Card.Description>
               <Text>
                 Last Updated At:{" "}
-                {new Date(userDetails?.updated_at).toLocaleDateString()}
+                {formatDate(userDetails?.updated_at)}
               </Text>
             </Card.Description>
 
@@ -144,7 +182,7 @@ function userdetail() {
             <Card.Title mt="2">User Events</Card.Title>
             <Card.Description>
               {userEvent &&
-                userEvent.map((event) => (
+                userEvent.map((event : UserEventType) => (
                   <div className="max-h-[500px] overflow-y-auto pr-1">
                     <div key={event?.id} className="flex flex-col gap-2 w-full">
                       <div className="flex items-start justify-between gap-4 px-4 py-3 bg-white dark:bg-gray-900 shadow-md rounded-xl transition hover:shadow-lg">
