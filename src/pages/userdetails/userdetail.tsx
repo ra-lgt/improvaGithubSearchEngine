@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Avatar, Button, Card } from "@chakra-ui/react";
+import  { useEffect, useState } from "react";
+import { Avatar, Card } from "@chakra-ui/react";
 import { Text, Box } from "@chakra-ui/react";
 import { useSearchParams } from "react-router-dom";
 import { ApiService } from "@/services/service";

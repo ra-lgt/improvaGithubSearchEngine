@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   AiOutlineCheckCircle,
   AiOutlineCloseCircle,
@@ -6,7 +6,7 @@ import {
   AiOutlineExport,
 } from "react-icons/ai";
 import { Card } from "@chakra-ui/react";
-import { Text, Box, VStack, HStack, Button } from "@chakra-ui/react";
+import { Text, Box, VStack, Button } from "@chakra-ui/react";
 import { useSearchHistory } from "@/context/searchHistoryContext";
 import { useNavigate } from "react-router-dom";
 
