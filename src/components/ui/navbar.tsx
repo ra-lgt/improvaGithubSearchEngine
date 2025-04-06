@@ -42,9 +42,10 @@ const NavLink: React.FC<NavLinkProps> = ({ href,children }) => (
 
 const Navbar: React.FC = () => {
   const { open, onOpen, onClose } = useDisclosure();
+  const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
   return (
-    <Box bg="white" px={4} boxShadow="sm" position="sticky" top={0} zIndex={10}>
+    <Box bg={isDarkMode?"black":"white"} px={4} boxShadow="sm" position="sticky" top={0} zIndex={10}>
       <Flex h={16} alignItems="center" justifyContent="space-between">
         {/* Logo */}
         <Text fontSize="xl" fontWeight="bold">
