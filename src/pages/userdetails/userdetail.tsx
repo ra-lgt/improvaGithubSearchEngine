@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
-import { Avatar, Card } from "@chakra-ui/react";
-import { Text } from "@chakra-ui/react";
+
+import React, { useEffect, useState } from "react";
+import { Avatar, Button, Card } from "@chakra-ui/react";
+import { Text ,Box} from "@chakra-ui/react";
 import { useSearchParams } from "react-router-dom";
 import { ApiService } from "@/services/service";
 import moment from "moment";
@@ -234,7 +235,18 @@ function userdetail() {
             Curabitur nec odio vel dui euismod fermentum.
             <div className="mt-4">
               {[...Array(20)].map((_, i) => (
-                <p key={i}>Additional content line {i + 1}</p>
+                  <Box
+                  mt={4}
+                  p={4}
+                  borderWidth="1px"
+                  borderRadius="lg"
+                  boxShadow="md"
+                  maxH="40"
+                  overflowY="auto"
+                >
+                          <p key={i}>Additional content line {i + 1}</p>
+                  </Box>
+        
               ))}
             </div>
           </Card.Description>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Avatar, Button, Card } from "@chakra-ui/react";
-import { Text, Input, InputGroup, Kbd } from "@chakra-ui/react";
+import { Text, Input, InputGroup, Kbd,Box } from "@chakra-ui/react";
 import { LuSearch } from "react-icons/lu";
 import { ApiService } from "@/services/service";
 import { useNavigate } from 'react-router-dom';
@@ -47,21 +47,40 @@ export default function Result() {
     })();
   }, []);
   return (
-    <>
-      <div className="flex justify-between items-center w-full">
-        <Text fontSize="xl" className="flex-shrink-0">
-          Search History
-        </Text>
-        <div className="flex-grow flex justify-end max-w-md">
-          <InputGroup startElement={<LuSearch />} endElement={<Kbd>⌘K</Kbd>}>
-            <Input
-              placeholder="Search username"
-              className="w-full px-4 py-2 border rounded-lg"
-              onChange={(e)=>{handleSearch(e)}}
-            />
-          </InputGroup>
-        </div>
-      </div>
+
+    <Box m="2%">
+   <Text 
+  display="flex" 
+  justifyContent="center" 
+  mt="1%" 
+  fontWeight="500" 
+  fontSize="2xl" 
+  width="100%"
+>
+  Results
+</Text>
+    <div className="h-2 md:h-4 lg:h-6" />
+
+  <div className="flex justify-between items-center w-full">
+    <Text fontSize="xl" className="flex-shrink-0">
+      Total Searches
+    </Text>
+    <div className="flex-grow flex justify-end max-w-md">
+      <InputGroup startElement={<LuSearch />} endElement={<Kbd>⌘K</Kbd>}>
+        <Input
+          placeholder="Search username"
+          className="w-full px-4 py-2 border rounded-lg"
+          onChange={(e) => {
+            handleSearch(e);
+          }}
+        />
+      </InputGroup>
+    </div>
+  </div>
+
+  <div className="h-2 md:h-4 lg:h-6" />
+
+
       {loading && (
           <CardLoader count={12}/>
 
@@ -94,6 +113,6 @@ export default function Result() {
           </Card.Root>
         ))}
       </div>
-    </>
+    </Box>
   );
 }
